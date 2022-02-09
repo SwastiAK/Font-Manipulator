@@ -1,3 +1,7 @@
+difference = 0;
+rightWristX = 0;
+leftWristX = 0; 
+
 function setup()
 {
     video = createCapture(VIDEO);
@@ -17,13 +21,21 @@ function modelLoaded()
 
 function gotPoses(results)
 {
-    if(results.lenght > 0)
+    if(results.length > 0)
     {
         console.log(results);
+        
+        rightWristX = results[0].pose.rightWrist.x;
+        leftWristX = results[0].pose.leftWrist.x;
+        difference = floor(leftWristX - rightWristX);
     }
 }
 
 function draw()
 {
-    background('#191970');
+    background("#24EDED");
+    document.getElementById("font_size").innerHTML = "Font Size Of The Text Will Be = "+difference+"px";
+    textSize(difference);
+    fill("#4C0FA8");
+    text('Swasti',50,400);
 }
